@@ -424,3 +424,21 @@ footer div{
   font-weight: bold;
   margin-left: .5rem;
 }
+
+.item-qtd{
+    border: 1px solid  #ff007f;
+    border-radius: .5rem;
+    transform: scale(.9);
+}
+.item-qtd span:nth-child(2){
+     border: 1px solid #ff007f;
+}
+
+.emptyCartMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    white-space: nowrap;
+    margin: 0;
+}

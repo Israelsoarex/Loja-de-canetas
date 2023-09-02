@@ -190,6 +190,13 @@ carousel2.on('afterChange', function(event, slick, currentSlide) {
 
 
 function gerarDivItemCarrinho(item) {
+  let emptyCartMessage = document.querySelector("#emptyCartMessage");
+  let emptyCartMessage2 = document.querySelector("#emptyCartMessage2")
+  if (emptyCartMessage) {
+      emptyCartMessage.remove();
+      emptyCartMessage2.remove();
+  }
+  
   const divItemCarrinho = document.createElement('div');
   divItemCarrinho.id = `divCard${item.id}`
   const divItemCart = document.createElement('div');
@@ -238,7 +245,89 @@ divImagemcart.appendChild(spanQtdCart);
   
   item.valor = item.preco.toFixed(2)*qtd;
   
-  const divItemRemover = document.createElement('div');
+  /// botões de increase e decrease
+  const divItemQtd = document.createElement('div');
+  divItemQtd.className = 'item-qtd';
+  const btnCrease = document.createElement('div');
+  btnCrease.className = 'btn-crease';
+  const btnIncrease = document.createElement('span');
+  btnIncrease.textContent = '+';
+  btnIncrease.id = `IncBtn${item.id}`;
+  btnIncrease.addEventListener("click", ()=>{
+      item.comprado ++;
+      spanQuantidade.innerText = ` ${item.comprado}`;
+      spanQtdCart.innerText = ` ${item.comprado}`;
+      
+      divItemValor.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      divItemValorCart.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      item.valor = Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd
+    upSubTotal()
+    qtd = 1
+      
+      
+  })
+  const btnDivsor = document.createElement('span');
+  btnDivsor.textContent = "" ;
+  const btnDecrease = document.createElement('span');
+  btnDecrease.textContent = '-';
+  btnDecrease.addEventListener("click", ()=>{
+      item.comprado --;
+      spanQuantidade.innerText = ` ${item.comprado}`;
+      spanQtdCart.innerText = ` ${item.comprado}`;
+      divItemValor.innerHTML = `R$ ${Number(item.valor.toFixed(2)) - item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      divItemValorCart.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      item.valor = Number(item.valor.toFixed(2)) - item.preco.toFixed(2)*qtd
+    upSubTotal()
+    qtd = 1
+    if (item.valor == 0) {
+       const divToRemove = document.querySelector(`#divCard${item.id}`);
+  const divToRmv = document.querySelector(`#divCart${item.id}`);
+        if(divToRemove) {
+            divToRemove.remove();
+            divToRmv.remove()
+        }
+        item.comprado = 0;
+atualizarQuantidadeItensCarrinho();
+        item.valor = 0;
+        upSubTotal();
+        let crdMsg = document.querySelector("#addItem");
+        let totalDeItem = 0;
+        for(let i = 0; i < canetas.length; i++){
+            let objetos = canetas[i];
+            if(!objetos.comprado) {
+                totalDeItem ++
+            }
+            
+        }
+        if(totalDeItem == 8) {
+            const mensagem = document.createElement("span");
+    mensagem.innerText = "NENHUM ITEM !";
+    mensagem.className = "emptyCartMessage";
+    mensagem.id = "emptyCartMessage";
+    const mensagem2 = document.createElement('span');
+    mensagem2.innerText = "NENHUM ITEM !";
+    mensagem2.className = "emptyCartMessage";
+    mensagem2.id = "emptyCartMessage2"
+
+    // Adicione a mensagem ao carrinho
+    crdMsg.appendChild(mensagem);
+    cardCntDivs.appendChild(mensagem2)
+
+        }
+    }
+      
+  })
+  btnCrease.appendChild(btnIncrease);
+  btnCrease.appendChild(btnDivsor);
+  btnCrease.appendChild(btnDecrease);
+  divItemQtd.appendChild(btnCrease);
+  
+  
+  
+  /* const divItemRemover = document.createElement('div');
   divItemRemover.className = 'item-remover';
   const btnRemover = document.createElement('button');
   btnRemover.className = 'btn-remover';
@@ -255,10 +344,11 @@ divImagemcart.appendChild(spanQtdCart);
 atualizarQuantidadeItensCarrinho();
   item.valor = 0;
   upSubTotal()
-});
+}); */
 
   
-  const divItemRmvCart = document.createElement('div');
+  /* const divItemRmvCart = document.createElement('div');
+  
   divItemRmvCart.className = 'item-rmvCart';
   const btnRmvCart = document.createElement('button');
   btnRmvCart.className = 'btn-rmvCart';
@@ -275,19 +365,20 @@ atualizarQuantidadeItensCarrinho();
   atualizarQuantidadeItensCarrinho();
   item.valor = 0;
   upSubTotal()
-});
+}); */
   
   const cardCntDivs = document.querySelector("#cardCntDivs");
   divItemCart.appendChild(divImagemcart);
   divItemCart.appendChild(divItemNomeCart);
   divItemCart.appendChild(divItemValorCart);
-  divItemCart.appendChild(divItemRmvCart);
+ // divItemCart.appendChild(divItemRmvCart);
   cardCntDivs.appendChild(divItemCart);
 
   divItemCarrinho.appendChild(divItemImagem);
   divItemCarrinho.appendChild(divItemNome);
   divItemCarrinho.appendChild(divItemValor);
-  divItemCarrinho.appendChild(divItemRemover);
+  //divItemCarrinho.appendChild(divItemRemover);
+  divItemCarrinho.appendChild(divItemQtd)
   return divItemCarrinho;
 }
 
@@ -369,6 +460,7 @@ buyBtn.addEventListener('click', ()=>{
     let spanUpdate = document.querySelector(`#spanCard${itemSelecionado.id}`);
     let spanUpdateCart = document.querySelector(`#spanCart${itemSelecionado.id}`);
     itemSelecionado.comprado += qtd;
+    // dá update nos círculos span 
     spanUpdate.innerText = `${itemSelecionado.comprado}`
     spanUpdateCart.innerText = `${itemSelecionado.comprado}`
     divUpdate.innerHTML = `R$ ${Number(itemSelecionado.valor.toFixed(2)) + itemSelecionado.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${itemSelecionado.preco.toFixed(2)} cada</sub>`;
@@ -385,7 +477,7 @@ buyBtn.addEventListener('click', ()=>{
 
 const cartContainer = document.querySelector(".cart-container");
 
-
+//colocar quantidade no ícone de carrinho 
 function atualizarQuantidadeItensCarrinho() {
   let quantidade = 0;
 for (let i = 0; i < canetas.length; i++) {
