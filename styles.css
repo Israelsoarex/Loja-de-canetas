@@ -318,6 +318,7 @@ footer div{
 .item-nome, .item-nomeCart{
   flex: 1;
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .item-valor , .item-valorCart{
@@ -444,4 +445,16 @@ footer div{
 }
 #cardCntDivs .item-qtd{
     transform: scale(.8);
+    display: flex;
+    justify-content: center;
+}
+#cardCntDivs .item-qtd span{
+    display: block;
+}
+#cardCntDivs .item-qtd span:nth-child(2){
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: #ff007f;
+    margin: 0;
 }
