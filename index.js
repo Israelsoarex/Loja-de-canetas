@@ -245,7 +245,7 @@ divImagemcart.appendChild(spanQtdCart);
   
   item.valor = item.preco.toFixed(2)*qtd;
   
-  /// botões de increase e decrease
+  /// botões de increase e decrease ( card 1)
   const divItemQtd = document.createElement('div');
   divItemQtd.className = 'item-qtd';
   const btnCrease = document.createElement('div');
@@ -326,58 +326,96 @@ atualizarQuantidadeItensCarrinho();
   divItemQtd.appendChild(btnCrease);
   
   
+  let divItemQtd2 = document.createElement('div');
+  divItemQtd2.className = 'item-qtd';
+  const btnCrease2 = document.createElement('div');
+  btnCrease2.className = 'btn-crease';
+  const btnIncrease2 = document.createElement('span');
+  btnIncrease2.textContent = '+';
+  btnIncrease2.id = `IncBtn2${item.id}`;
+  btnIncrease2.addEventListener("click", ()=>{
+      item.comprado ++;
+      spanQuantidade.innerText = ` ${item.comprado}`;
+      spanQtdCart.innerText = ` ${item.comprado}`;
+      
+      divItemValor.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      divItemValorCart.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      item.valor = Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd
+    upSubTotal()
+    qtd = 1
+      
+      
+  })
   
-  /* const divItemRemover = document.createElement('div');
-  divItemRemover.className = 'item-remover';
-  const btnRemover = document.createElement('button');
-  btnRemover.className = 'btn-remover';
-  btnRemover.textContent = 'Remover';
-  divItemRemover.appendChild(btnRemover);
-  btnRemover.addEventListener('click', () => {
-  const divToRemove = document.querySelector(`#divCard${item.id}`);
+  const btnDivsor2 = document.createElement('span');
+  btnDivsor2.textContent = "" ;
+  const btnDecrease2 = document.createElement('span');
+  btnDecrease2.textContent = '-';
+  btnDecrease2.addEventListener("click", ()=>{
+      item.comprado --;
+      spanQuantidade.innerText = ` ${item.comprado}`;
+      spanQtdCart.innerText = ` ${item.comprado}`;
+      divItemValor.innerHTML = `R$ ${Number(item.valor.toFixed(2)) - item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      divItemValorCart.innerHTML = `R$ ${Number(item.valor.toFixed(2)) + item.preco.toFixed(2)*qtd}<br><sub style="font-size: .8rem;">R$ ${item.preco.toFixed(2)} cada</sub>`;
+      
+      item.valor = Number(item.valor.toFixed(2)) - item.preco.toFixed(2)*qtd
+    upSubTotal()
+    qtd = 1
+    if (item.valor == 0) {
+       const divToRemove = document.querySelector(`#divCard${item.id}`);
   const divToRmv = document.querySelector(`#divCart${item.id}`);
-  if (divToRemove) {
-    divToRemove.remove();
-    divToRmv.remove()
-  }
-  item.comprado = 0;
+        if(divToRemove) {
+            divToRemove.remove();
+            divToRmv.remove()
+        }
+        item.comprado = 0;
 atualizarQuantidadeItensCarrinho();
-  item.valor = 0;
-  upSubTotal()
-}); */
+        item.valor = 0;
+        upSubTotal();
+        let crdMsg = document.querySelector("#addItem");
+        let totalDeItem = 0;
+        for(let i = 0; i < canetas.length; i++){
+            let objetos = canetas[i];
+            if(!objetos.comprado) {
+                totalDeItem ++
+            }
+            
+        }
+        if(totalDeItem == 8) {
+            const mensagem = document.createElement("span");
+    mensagem.innerText = "NENHUM ITEM !";
+    mensagem.className = "emptyCartMessage";
+    mensagem.id = "emptyCartMessage";
+    const mensagem2 = document.createElement('span');
+    mensagem2.innerText = "NENHUM ITEM !";
+    mensagem2.className = "emptyCartMessage";
+    mensagem2.id = "emptyCartMessage2"
 
-  
-  /* const divItemRmvCart = document.createElement('div');
-  
-  divItemRmvCart.className = 'item-rmvCart';
-  const btnRmvCart = document.createElement('button');
-  btnRmvCart.className = 'btn-rmvCart';
-  btnRmvCart.textContent = 'Remover';
-  divItemRmvCart.appendChild(btnRmvCart);
-  btnRmvCart.addEventListener('click', () => {
-  const divToRmv = document.querySelector(`#divCart${item.id}`);
-  const divToRemove = document.querySelector(`#divCard${item.id}`);
-  if (divToRmv) {
-    divToRmv.remove();
-    divToRemove.remove()
-  }
-  item.comprado = 0;
-  atualizarQuantidadeItensCarrinho();
-  item.valor = 0;
-  upSubTotal()
-}); */
-  
+    // Adicione a mensagem ao carrinho
+    crdMsg.appendChild(mensagem);
+    cardCntDivs.appendChild(mensagem2)
+
+        }
+    }
+      
+  })
+btnCrease2.appendChild(btnIncrease2);
+  btnCrease2.appendChild(btnDivsor2);
+  btnCrease2.appendChild(btnDecrease2);
+  divItemQtd2.appendChild(btnCrease2);
+ 
   const cardCntDivs = document.querySelector("#cardCntDivs");
   divItemCart.appendChild(divImagemcart);
   divItemCart.appendChild(divItemNomeCart);
   divItemCart.appendChild(divItemValorCart);
- // divItemCart.appendChild(divItemRmvCart);
+  divItemCart.appendChild(divItemQtd2);
   cardCntDivs.appendChild(divItemCart);
 
   divItemCarrinho.appendChild(divItemImagem);
   divItemCarrinho.appendChild(divItemNome);
   divItemCarrinho.appendChild(divItemValor);
-  //divItemCarrinho.appendChild(divItemRemover);
   divItemCarrinho.appendChild(divItemQtd)
   return divItemCarrinho;
 }

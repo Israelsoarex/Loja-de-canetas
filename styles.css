@@ -442,3 +442,6 @@ footer div{
     white-space: nowrap;
     margin: 0;
 }
+#cardCntDivs .item-qtd{
+    transform: scale(.8);
+}
