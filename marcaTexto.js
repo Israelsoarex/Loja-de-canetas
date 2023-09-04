@@ -1,12 +1,8 @@
  let colors = {
-  verde: "#67D702",
-  lilas: "#9856FE",
-  azulClaro: "#00A3E2",
-  laranja: "#FE7003",
-  rosa: "#E769C1",
-  azulEscuro: "#0C24F0",
-  preta: "#181818",
-  vermelha: "#F60F18"
+  azul: "#A2DCD7",
+  amarelo: "#F3D275",
+  verde: "#BBD081",
+  rosa: "#F7879F"
 };
 
 let coresDiv = document.querySelector(".cores-disponiveis");
@@ -47,68 +43,44 @@ coresDiv.addEventListener("click", function(event) {
  
 const canetas = [
   {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Azul escuro',
+    nome: 'Marca Texto Tom Pastel | BIC',
+    cor: 'Multicores',
     preco: 4,
     disponivel: 2,
-    imagem: 'azulEscuro.png',
+    imagem: 'mcTodas.jpg',
     id: '01'
   },
   {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Vermelha',
+    nome: 'Marca Texto Tom Pastel | BIC',
+    cor: 'Azul',
     preco: 4,
     disponivel: 2,
-    imagem: 'vermelha.png',
+    imagem: 'mcAzul.jpg',
     id: '02'
   },
   {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Preta',
+    nome: 'Marca Texto Tom Pastel | BIC',
+    cor: 'Amarelo',
     preco: 4,
     disponivel: 2,
-    imagem: 'preta.png',
+    imagem: 'mcAmarelo.jpg',
     id: '03'
   },
   {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Azul Claro',
-    preco: 4,
-    disponivel: 2,
-    imagem: 'azulClaro.png',
-    id: '04'
-  },
-  {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Laranja',
-    preco: 4,
-    disponivel: 2,
-    imagem: 'laranja.png',
-    id: '05'
-  },
-  {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
+    nome: 'Marca Texto Tom Pastel | BIC',
     cor: 'Verde',
     preco: 4,
     disponivel: 2,
-    imagem: 'verde.jpg',
-    id: '06'
+    imagem: 'mcVerde.jpg',
+    id: '04'
   },
   {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
+    nome: 'Marca Texto Tom Pastel | BIC',
     cor: 'Rosa',
     preco: 4,
     disponivel: 2,
-    imagem: 'rosa.png',
-    id: '07'
-  },
-  {
-    nome: 'Caneta Esferográfica Bic Cristal Up',
-    cor: 'Lilás',
-    preco: 4,
-    disponivel: 2,
-    imagem: 'lilas.png',
-    id: '08'
+    imagem: 'mcRosa.jpg',
+    id: '05'
   }
 ];
 
@@ -118,7 +90,7 @@ const canetas = [
  let penName = document.querySelector("#penName");
  
  
-penName.innerHTML = `${canetas[0].nome} Multicores `;
+penName.innerHTML = `${canetas[0].nome} Multicores`;
  
  let posicaoCorSelecionada;
  
@@ -150,8 +122,10 @@ carousel2.on('afterChange', function(event, slick, currentSlide) {
 
   for (let i = 0; i < canetas.length; i++) {
     const nomeImagem = canetas[i].imagem.split(".")[0];
-    if (nomeImagem === corSelecionada) {
+    if (nomeImagem === `mc${corSelecionada.charAt(0).toUpperCase()}${corSelecionada.slice(1)}`
+) {
       penName.innerHTML = `${canetas[i].nome} Cor ${canetas[i].cor}`;
+      
       break; 
     }else {
         penName.innerHTML = `${canetas[i].nome} Multicores `;
@@ -165,7 +139,7 @@ carousel2.on('afterChange', function(event, slick, currentSlide) {
     
   for (let i = 0; i < canetas.length; i++) {
    const nomeImagem = canetas[i].imagem.split(".")[0];
-    if (nomeImagem === corSelecionada) {
+    if (nomeImagem === `mc${corSelecionada.charAt(0).toUpperCase()}${corSelecionada.slice(1)}`) {
       
       posicaoCorSelecionada = i;
       penName.innerHTML = `${canetas[i].nome} Cor ${canetas[i].cor}`;
@@ -302,7 +276,7 @@ atualizarQuantidadeItensCarrinho();
             }
             
         }
-        if(totalDeItem == 8) {
+        if(totalDeItem == canetas.length) {
             const mensagem = document.createElement("span");
     mensagem.innerText = "NENHUM ITEM !";
     mensagem.className = "emptyCartMessage";
@@ -383,7 +357,7 @@ atualizarQuantidadeItensCarrinho();
             }
             
         }
-        if(totalDeItem == 8) {
+        if(totalDeItem == canetas.length) {
             const mensagem = document.createElement("span");
     mensagem.innerText = "NENHUM ITEM !";
     mensagem.className = "emptyCartMessage";
@@ -674,11 +648,10 @@ cartExit.addEventListener("click", handleCardLayoutClick);
 
 cardContainer.addEventListener('click', (event) => {event.stopPropagation();});
 
-
 // mover pra outra pagina
 
 let recBtn = document.querySelector("#recBtn");
 
 recBtn.addEventListener("click", ()=>{
-    location.href = "marcaTexto.html"
+    location.href = "index.html"
 })

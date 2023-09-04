@@ -458,3 +458,70 @@ footer div{
     background: #ff007f;
     margin: 0;
 }
+#recDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 15% 4rem 15% ;
+    background: #fff;
+    padding: 1rem;
+    border: 2px solid #ff007f;
+    border-radius: 2rem;
+}
+#recImgDiv img{
+    width: 100%;
+    border-radius: .5rem;
+}
+#recImgDiv{
+    position: relative;
+}
+#recImgDiv span{
+    position: absolute;
+    top: .1rem;
+    left: .1rem;
+    background: #00800080;
+    padding: .2rem 1rem;
+    color: #fff;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+}
+#recStarDiv{
+    width: 100%;
+    font-size: 1.5rem;
+    margin-top: .5rem;
+    font-weight: bold;
+    color: #ff007f;
+}
+#recValueDiv{
+    width: 100%;
+}
+#recBtnDiv{
+    width: 100%;
+    margin: 2rem 0 0 0;
+    display: flex;
+    justify-content: center;
+}
+#recBtn{
+  border: none;
+  background-color: #01B578; 
+  color: #fff;
+  padding: 10px 20px; 
+  border-radius: 1rem;
+  width: 60%;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#relDiv{
+  text-align: center;
+  background: #ff007f;
+  padding: 0.5rem 0;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  margin: 1rem;
+}
+
+#relDiv h2{
+    margin: 0;
+    font-size: 1.2rem;
+}
