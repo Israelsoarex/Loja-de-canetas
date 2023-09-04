@@ -680,5 +680,5 @@ cardContainer.addEventListener('click', (event) => {event.stopPropagation();});
 let recBtn = document.querySelector("#recBtn");
 
 recBtn.addEventListener("click", ()=>{
-    location.href = "MarcaTexto.html"
+    location.href = "Marcatexto.html"
 })
